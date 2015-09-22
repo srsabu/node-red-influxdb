@@ -1,0 +1,109 @@
+<script type="text/x-red" data-template-name="influxdb">
+	<div class="form-row">
+		<label for="node-config-input-hostname"><i class="fa fa-bookmark"></i> Host </label>
+		<input class="input-append-left" type="text" id="node-config-input-hostname" placeholder="localhost" style="width: 40%" >
+		<label for="node-config-input-port" style="margin-left: 10px; width: 35px;"> Port </label>
+		<input class="input-append-left" type="text" id="node-config-input-port" placeholder="8086" style="width: 45px" >
+	</div>
+   <div class="form-row">
+        <label for="node-config-input-protocol"><i class="fa fa-protocol"></i> <span data-i18n="influxdb.label.protocol"></span></label>
+        <input type="text" id="node-config-input-protocol" placeholder="http">
+    </div>
+   <div class="form-row">
+        <label for="node-config-input-db"><i class="fa fa-database"></i> <span data-i18n="influxdb.label.database"></span></label>
+        <input type="text" id="node-config-input-db">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-username"><i class="fa fa-user"></i> <span data-i18n="influxdb.label.username"></span></label>
+        <input type="text" id="node-config-input-username">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-password"><i class="fa fa-lock"></i> <span data-i18n="influxdb.label.password"></span></label>
+        <input type="password" id="node-config-input-password">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-config-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('influxdb', {
+        category: 'config',
+        color: "rgb(218, 196, 180)",
+        defaults: {
+            hostname: {value: "127.0.0.1", required: true},
+            port: {value: 8086, required: true},
+			protocol: {value: "http", required: true},
+            db: {value: "", required: true},
+            username: {type: "text"},
+            password: {type: "password"},
+            name: {value: ""}
+        },
+        label: function() {
+            return this.name || this.hostname + ":" + this.port + "/" + this.db;
+        }
+    });
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('influxdb query', {
+		category: 'storage',
+		color: '#a6bbcf',
+		defaults: {
+            influxdb: {type: "influxdb", required:true },
+			name: {value: ""},
+			query: {value: ""}
+		},
+		inputs: 1,
+		outputs: 1,
+		icon: "file.png",
+		label: function() {
+			return this.name||"influxdb query";
+		}
+	});
+</script>
+
+<script type="text/x-red" data-template-name="influxdb query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-query" placeholder="Query">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="influxdb query">
+    <p>Read the current value of a specified influx db query</p>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('influxdb writepoint', {
+		category: 'storage',
+		color: '#a6bbcf',
+		defaults: {
+            influxdb: {type: "influxdb", required:true },
+			name: {value: ""},
+			series: {value: ""},
+			tags: {value: ""}
+		},
+		inputs: 1,
+		outputs: 0,
+		icon: "file.png",
+		label: function() {
+			return this.name||"influxdb writepoint";
+		}
+	});
+</script>
+
+<script type="text/x-red" data-template-name="influxdb writepoint">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-series" placeholder="Series">
+        <input type="text" id="node-input-tags" placeholder="Tags">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="influxdb writepoint">
+    <p>Write the message data to the specified influx db point</p>
+</script>
