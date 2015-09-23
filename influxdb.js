@@ -1,6 +1,6 @@
 module.exports = function(RED) {
 	"use strict";
-	var influx = require('influx');
+	// var influx = require('influx');
 	
     function InfluxNode(config) {
         RED.nodes.createNode(this,config);

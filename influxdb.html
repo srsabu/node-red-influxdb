@@ -6,19 +6,19 @@
 		<input class="input-append-left" type="text" id="node-config-input-port" placeholder="8086" style="width: 45px" >
 	</div>
    <div class="form-row">
-        <label for="node-config-input-protocol"><i class="fa fa-protocol"></i> <span data-i18n="influxdb.label.protocol"></span></label>
+        <label for="node-config-input-protocol"><i class="fa fa-protocol"></i> Protocol</label>
         <input type="text" id="node-config-input-protocol" placeholder="http">
     </div>
    <div class="form-row">
-        <label for="node-config-input-db"><i class="fa fa-database"></i> <span data-i18n="influxdb.label.database"></span></label>
+        <label for="node-config-input-db"><i class="fa fa-database"></i> Database</label>
         <input type="text" id="node-config-input-db">
     </div>
     <div class="form-row">
-        <label for="node-config-input-username"><i class="fa fa-user"></i> <span data-i18n="influxdb.label.username"></span></label>
+        <label for="node-config-input-username"><i class="fa fa-user"></i> Username</label>
         <input type="text" id="node-config-input-username">
     </div>
     <div class="form-row">
-        <label for="node-config-input-password"><i class="fa fa-lock"></i> <span data-i18n="influxdb.label.password"></span></label>
+        <label for="node-config-input-password"><i class="fa fa-lock"></i> Password</label>
         <input type="password" id="node-config-input-password">
     </div>
     <div class="form-row">
@@ -48,7 +48,7 @@
 
 <script type="text/javascript">
 	RED.nodes.registerType('influxdb query', {
-		category: 'storage',
+		category: 'storage-input',
 		color: '#a6bbcf',
 		defaults: {
             influxdb: {type: "influxdb", required:true },
@@ -59,15 +59,22 @@
 		outputs: 1,
 		icon: "file.png",
 		label: function() {
-			return this.name||"influxdb query";
+			return this.name||"influxdb";
 		}
 	});
 </script>
 
 <script type="text/x-red" data-template-name="influxdb query">
     <div class="form-row">
+        <label for="node-input-influxdb"><i class="fa fa-bookmark"></i> Server</label>
+        <input type="text" id="node-input-influxdb">
+    </div>
+    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"> Query</label>
         <input type="text" id="node-input-query" placeholder="Query">
     </div>
 </script>
@@ -78,7 +85,7 @@
 
 <script type="text/javascript">
 	RED.nodes.registerType('influxdb writepoint', {
-		category: 'storage',
+		category: 'storage-output',
 		color: '#a6bbcf',
 		defaults: {
             influxdb: {type: "influxdb", required:true },
@@ -90,16 +97,26 @@
 		outputs: 0,
 		icon: "file.png",
 		label: function() {
-			return this.name||"influxdb writepoint";
+			return this.name||"influxdb";
 		}
 	});
 </script>
 
 <script type="text/x-red" data-template-name="influxdb writepoint">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-influxdb"><i class="fa fa-bookmark"></i> Server</label>
+        <input type="text" id="node-input-influxdb">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"> Name<i class="icon-tag"></i></label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-series"> Series</label>
         <input type="text" id="node-input-series" placeholder="Series">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tags"> Tags</label>
         <input type="text" id="node-input-tags" placeholder="Tags">
     </div>
 </script>
